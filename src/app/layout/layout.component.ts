@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-layout',
@@ -7,9 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor() { }
+  form: FormGroup;
+  courses: FormArray;
+
+  constructor(
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit(): void {
+    this.courses = new FormArray([]);
+
+    this.form = this.fb.group({
+      courses: this.courses
+    });
+  }
+
+  addCourse() {
+    this.courses.push(new FormControl())
+  }
+
+  onSubmit() {
+    console.log(this.form.value);
   }
 
 }
